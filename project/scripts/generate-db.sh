@@ -1,0 +1,1 @@
+node -r tsconfig-paths/register --require ts-node/register ./node_modules/typeorm/cli.js -d migration/ormconfig.ts migration:generate migration/scripts/$1
