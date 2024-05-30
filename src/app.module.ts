@@ -7,7 +7,9 @@ import { ProductModule } from './app/product/product.module';
 import { UploadModule } from '@core/upload/upload.module';
 import { FirebaseModule } from '@core/firebase/firebase.module';
 import { AllExceptionsFilter } from '@core/exception/all-exception-filter';
-import { APP_FILTER } from '@nestjs/core';
+import { APP_FILTER, APP_GUARD } from '@nestjs/core';
+import { AuthModule } from './app/auth/auth.module';
+import { AuthGuard } from './app/auth/auth.guard';
 
 @Module({
   imports: [
@@ -19,11 +21,16 @@ import { APP_FILTER } from '@nestjs/core';
     ProductModule,
     UploadModule,
     FirebaseModule,
+    AuthModule
   ],
   providers: [
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: AuthGuard,
     },
   ]
 })

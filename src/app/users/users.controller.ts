@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res, UseGuards } from '@nestjs/common';
 import { UserService } from './users.service';
 import { Response } from 'express';
 import { CreateUserDTO } from './users.dto';
 
 @Controller('users')
+@UseGuards()
 export class UsersController {
   constructor(private readonly usersService: UserService) {}
 
