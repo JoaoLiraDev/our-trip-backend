@@ -5,6 +5,12 @@ import { Column, Entity } from 'typeorm';
   name: 'users',
 })
 export class UserEntity extends BaseEntitySchema {
-  @Column({})
-  nome: string;
+  @Column({ nullable: false })
+  name: string;
+
+  @Column({ unique: true, nullable: false })
+  email: string;
+
+  @Column({ nullable: false })
+  password: string;
 }
