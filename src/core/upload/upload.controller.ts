@@ -1,13 +1,17 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { FirebaseService } from '../firebase/firebase.service';
 import { UploadFileDto, UploadResponse } from './upload.dto';
+import { Public } from 'src/app/auth/auth.decorator';
 
+@Public()
 @Controller('upload')
 export class UploadController {
   constructor(private readonly firebaseService: FirebaseService) {}
 
   @Post()
-  async uploadFile(@Body() uploadFileDto: UploadFileDto): Promise<UploadResponse>{
+  async uploadFile(
+    @Body() uploadFileDto: UploadFileDto,
+  ): Promise<UploadResponse> {
     const { filename, file } = uploadFileDto;
 
     if (!file) {
@@ -27,7 +31,7 @@ export class UploadController {
       });
 
       blobStream.on('finish', () => {
-        const publicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+        const publicUrl = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${blob.name}?alt=media`;
         resolve({ fileUrl: publicUrl });
       });
 

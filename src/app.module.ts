@@ -21,17 +21,17 @@ import { AuthGuard } from './app/auth/auth.guard';
     ProductModule,
     UploadModule,
     FirebaseModule,
-    AuthModule
+    AuthModule,
   ],
   providers: [
     {
       provide: APP_FILTER,
       useClass: AllExceptionsFilter,
     },
-    {
-      provide: APP_GUARD,
-      useClass: AuthGuard,
-    },
-  ]
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: AuthGuard,
+    // },
+  ],
 })
 export class AppModule {}

@@ -10,4 +10,4 @@ import { UserEntity } from './users.entity';
   providers: [UserService],
   exports: [UserService],
 })
-export class UsersModule { }
+export class UsersModule {}

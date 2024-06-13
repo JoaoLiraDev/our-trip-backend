@@ -1,5 +1,5 @@
 import { Decimal } from '@core/typing/typing';
-import { IsDecimal, IsOptional, IsString } from 'class-validator';
+import { IsDecimal, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateProductDTO {
   @IsString()
@@ -12,8 +12,8 @@ export class CreateProductDTO {
   @IsOptional()
   stars?: string;
 
-  @IsDecimal()
-  price: Decimal;
+  @IsNumber()
+  price: number;
 
   @IsString()
   description: string;

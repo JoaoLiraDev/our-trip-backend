@@ -1,3 +1,4 @@
+import { Decimal } from './../../core/typing/typing';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -20,7 +21,10 @@ export class ProductService {
   }
 
   async createProduct(productDto: CreateProductDTO): Promise<ProductEntity> {
-    const createdProduct = await this.repository.save(productDto);
+    const createdProduct = await this.repository.save({
+      ...productDto,
+      price: new Decimal(productDto.price),
+    });
     return createdProduct;
   }
 }

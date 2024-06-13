@@ -21,6 +21,6 @@ export class UserService {
   }
 
   async findUserByEmail(email: string): Promise<UserEntity> {
-    return this.repositoty.findOne({ where: {email: Like(`%${email}%`)}})
+    return this.repositoty.findOne({ where: { email: Like(`%${email}%`) } });
   }
 }

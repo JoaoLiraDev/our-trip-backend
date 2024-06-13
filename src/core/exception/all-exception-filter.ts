@@ -10,8 +10,6 @@ import { HttpAdapterHost } from '@nestjs/core';
 
 import { QueryFailedError } from 'typeorm';
 
-import { PostgresError } from '@core/database/database.definitions';
-
 @Catch()
 export class AllExceptionsFilter implements ExceptionFilter {
   constructor(private readonly httpAdapterHost: HttpAdapterHost) {}
@@ -28,8 +26,12 @@ export class AllExceptionsFilter implements ExceptionFilter {
       exception instanceof HttpException
         ? exception.getStatus()
         : HttpStatus.INTERNAL_SERVER_ERROR;
-      
-        let responseBody: { timestamp: string; statusCode: HttpStatus | number; message: string } = {
+
+    let responseBody: {
+      timestamp: string;
+      statusCode: HttpStatus | number;
+      message: string;
+    } = {
       statusCode: httpStatus,
       message: 'Internal Server Error',
       timestamp: new Date().toISOString(),
@@ -45,7 +47,7 @@ export class AllExceptionsFilter implements ExceptionFilter {
         ...response,
       };
     } else if (exception instanceof QueryFailedError) {
-      if (exception.driverError.errno === PostgresError.UNIQUE_VIOLATION) {
+      if (exception.driverError.errno === 'ORA-00001') {
         this.logger.log(exception);
         httpStatus = HttpStatus.BAD_REQUEST;
         responseBody = {
